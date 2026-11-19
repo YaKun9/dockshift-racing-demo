@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="theme-color" content="#172831"><title>赛车俱乐部</title>
+<link rel="stylesheet" href="./assets/game.css">
+</head>
+<body data-state="title">
+<canvas id="world" aria-label="雨港环线三维赛道"></canvas>
+<main id="home" class="screen">
+  <div class="brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span> 赛车俱乐部 <button id="version" disabled aria-label="查看更新记录">v1.7.1</button></div>
+  <div class="home-tools"><button class="tool audio">声音：开</button><button class="tool quality">画质：高</button></div>
+  <div class="hero"><div id="eventName" class="flag">01 / 港区夜赛</div><h1>赛车俱乐部</h1><div id="trackWord" class="wordmark" lang="en">RAINPORT CIRCUIT</div>
+  <div class="spec"><span id="distance">3.06 km 环线</span><span>3 圈</span><span>4 位车手</span></div>
+  <div class="pickers"><button id="chooseTrack" disabled><span>参赛地图</span><strong id="trackName">雨港环线</strong><b aria-hidden="true">⌄</b></button><button id="choose" disabled><span>参赛车型</span><strong id="carName">载入赛车…</strong><b aria-hidden="true">⌄</b></button></div>
+  <div class="actions"><button id="start" class="primary" disabled>发车 <b aria-hidden="true">→</b></button><button id="online" class="secondary" hidden disabled>联机大厅</button><button id="board" class="secondary" hidden disabled>赛道榜</button><button id="guide" class="secondary" disabled>驾驶指南</button></div></div>
+  <button id="garageView" class="tool" disabled>看车尾</button>
+  <div class="footer"><span id="driverBadge">堆场 · 岸吊 · 滨水线</span><div class="footer-end"><span class="mono" id="record">CIRCUIT NO. 01</span><span class="author-credit">作者：亚坤</span></div></div>
+</main>
+<section id="hud" class="screen" hidden aria-label="比赛仪表">
+  <div class="hud-top hud-box"><div class="rank"><strong id="place">4</strong><small id="gridSize">/4 名</small></div><div class="lap"><strong id="lap">1</strong><small>/3 圈</small></div></div>
+  <div class="timing hud-box"><div><div class="stat-label">比赛用时</div><div class="clock num" id="time">0:00.000</div></div><button id="pause" class="tool" aria-label="暂停比赛">Ⅱ</button></div>
+  <aside id="livePositions" class="hud-box live-positions" aria-labelledby="positionsTitle" hidden>
+    <h2 id="positionsTitle">实时排名</h2><ol id="positionsList" class="positions-list"></ol>
+  </aside>
+  <div class="course-info hud-box"><svg id="map" role="img" aria-label="赛道和车手位置"></svg><div class="sector-name"><span id="sector"></span><span id="sectorNo"></span></div></div>
+  <div class="speedo hud-box"><strong id="speed">0</strong> <small>km/h</small><div class="meter"><i id="rpm"></i></div><div class="speed-meta"><span id="gear"></span><span id="grip"></span></div></div>
+</section>
+<div id="onlineNotice" role="status" hidden></div>
+<div id="call" hidden aria-live="polite"><div class="call-big" id="callBig"></div><div class="call-small" id="callSmall"></div></div>
+<section id="finishShot" hidden aria-label="冲线镜头"><div class="finish-caption"><div class="finish-kicker"><i></i><span id="finishTrack"></span></div><strong lang="en">FINISH</strong><div class="finish-strip"><b id="finishRank"></b><span id="finishTime"></span></div></div><button id="skipShot" class="tool">查看成绩 →</button></section>
+<aside id="touch" aria-label="触屏驾驶"><div class="pad"><button data-key="left" aria-label="向左">◀</button><button data-key="right" aria-label="向右">▶</button></div><div class="pad"><button data-key="hand">手刹</button><button data-key="brake">刹车</button><button data-key="gas">油门</button></div></aside>
+<div id="dialog" class="overlay" hidden><section class="panel" role="dialog" aria-modal="true" aria-labelledby="panelTitle"><h2 id="panelTitle"></h2><div id="panelBody"></div><div id="panelActions" class="actions"></div></section></div>
+<template id="credits"><details><summary>车辆模型与制作署名</summary><p>Veneno / Y7：hasapeta（CC BY）；BMW M3 GT3 / XZ：Neubi（CC0）。Stunt Rally 移植、设置及 XZ 内饰：CryHam。雨港版转换了网格和贴图，重新制作车漆、玻璃、轮组动画和灯光。</p><p><a href="https://github.com/stuntrally/stuntrally/blob/9a7efa5aea7f792f88220d75a6e0d9e22c8ea6e6/data/cars/Y7/about.txt" target="_blank" rel="noopener">Y7 素材与许可</a> · <a href="https://blendswap.com/blend/3697" target="_blank" rel="noopener">BMW 模型与许可</a> · Three.js r180 / MIT</p><p>F40、911 Turbo 和 F1 LM 的基础模型按 <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> 使用，已减面、重新着色并适配轮组。<a href="https://sketchfab.com/3d-models/52a66c41cfcd4f999fb1b1c49bf24d70" target="_blank" rel="noopener">Ferrari F40 / Black Snow</a> · <a href="https://sketchfab.com/3d-models/8568d9d14a994b9cae59499f0dbed21e" target="_blank" rel="noopener">Porsche 911 Turbo / Lionsharp Studios（Karol Miklas）</a> · <a href="https://sketchfab.com/3d-models/e8aa53610e5047a98bfca98726e670c0" target="_blank" rel="noopener">McLaren F1 LM / No Limits</a>。</p><p>劳斯莱斯幻影 Series II、宾利 Mulsanne Speed 与布加迪威龙 16.4 的游戏网格由雨港车房按实车造型建模。车辆外观设计与商标归各自权利人。</p><p><a href="https://sketchfab.com/3d-models/2025-xiaomi-su7-ultra-5fd4113db0a846a4884f575de60b298e" target="_blank" rel="noopener">SU7 Ultra / Ddiaz Design</a> · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>。雨港版改制双风道前舱盖、车漆与拉花，适配尺寸和轮组动画；模型改编沿用同一许可。</p></details></template>
+<script defer src="./assets/su7-part-1.js"></script>
+<script defer src="./assets/su7-part-2.js"></script>
+<script defer src="./assets/game.js"></script>
+</body></html>
